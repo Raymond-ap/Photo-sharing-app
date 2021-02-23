@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% load static %} {% static "img" as baseUrl %}
+<!-- END #fh5co-header -->
+{% block content %}
+<div class="container-fluid">
+  <div class="row fh5co-post-entry">
+    {% for photo in page_objects %}
+    <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+      <figure>
+        <a href="{% url 'detail' photo.slug %}"
+          ><img
+            src="{{photo.thumbnail.url}}"
+            alt="Image"
+            class="img-responsive"
+        /></a>
+      </figure>
+      {% if photo.tag %}
+      <span class="fh5co-meta"
+        ><a href="{% url 'detail' photo.slug %}"> {{photo.tag}}</a></span
+      >
+      {% else %}
+      <span class="fh5co-meta"
+        ><a href="{% url 'detail' photo.slug %}"> Others </a></span
+      >
+      {% endif %}
+      <h2 class="fh5co-article-title">
+        <a href="{% url 'detail' photo.slug %}"> {{photo.preview_text}}</a>
+      </h2>
+      <span class="fh5co-meta fh5co-date">{{photo.created}}</span>
+    </article>
+
+    {% empty %}
+    <h3 class="text-center">No photos</h3>
+    {% endfor %}
+
+    <div
+      class="clearfix visible-lg-block visible-md-block visible-sm-block visible-xs-block"
+    ></div>
+
+    <div class="clearfix visible-xs-block"></div>
+    <div class="paginator form-container">
+      <ul class="pager">
+	  {% if page_objects.has_previous %}
+        <li class="previous">
+          <a href="?page={{page_objects.previous_page_number}}">Previous</a>
+        </li>
+	  {% else %}
+		<li class="previous">
+          <a>Previous</a>
+        </li>
+	  {% endif %}
+
+        <li>
+          <h3 class="fillSpace">Page {{page_objects.number}}</h3>
+        </li>
+		{% if page_objects.has_next %}
+        <li class="next">
+          <a href="?page={{page_objects.next_page_number}}">Next</a>
+        </li>
+		{% else %}
+			<li class="next">
+          		<a>Next</a>
+        	</li>
+		{% endif %}
+      </ul>
+    </div>
+    <div></div>
+  </div>
+  {% endblock %}
+</div>

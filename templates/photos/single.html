@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+	<div class="container-fluid">
+
+		<div class="row fh5co-post-entry single-entry">
+			<article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+				<figure class="animate-box">
+					<img src="{{photo.thumbnail.url}}" alt="Image"
+					style="object-fit: contain !important;" class="img-responsive">
+				</figure>
+				{% if photo.category %}
+				<span class="fh5co-meta animate-box"><a 
+				href="{% url 'detail' photo.slug %}">{{photo.category}}</a></span>
+				{% else %}
+				<span class="fh5co-meta animate-box"><a 
+				href="{% url 'detail' photo.slug %}">Others</a></span>
+				{% endif %}
+				
+				<p style='fs-5' class=""><a 
+				href="{% url 'detail' photo.slug %}">{{photo.preview_text}}</a></p>
+
+				<h2 class="fh5co-article-title animate-box"><a 
+				href="{% url 'detail' photo.slug %}">{{photo.title}}</a></h2>
+
+				<span class="fh5co-meta fh5co-date animate-box">
+				{{photo.created}}
+				</span>
+				
+				<div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+
+					<div class="row">
+						<div class="col-md-12 animate-box">
+						{% if photo.description %}
+							<h2>Description</h2>
+							<p>{{photo.description|safe}}</p>
+						{% else %}
+						
+						{% endif %}
+							
+						</div>
+					</div>
+					
+					
+				</div>
+			</article>
+		</div>
+
+	</div>
+{% endblock content %}
