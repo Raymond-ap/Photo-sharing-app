@@ -32,7 +32,6 @@ def post(request):
         post = Photo(user=request.user, preview_text=data['preview_text'], title=data['title'], 
         description=data['description'], tag=data['tag'],
          thumbnail=data['thumbnail'],published=True)
-        print('Image is', data['thumbnail'])
 
         post.save()
         return redirect('home')
@@ -59,7 +58,6 @@ def filters(request):
     if request.method == 'POST':
         data = request.POST
         photos = Photo.objects.filter(published=True, preview_text__contains=data['Search'])
-        print('=================', photos)
     else:
         photos = Photo.objects.filter(published=True).order_by('-created')
     
